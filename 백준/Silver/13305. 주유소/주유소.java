@@ -12,24 +12,24 @@ public class Main {
 		
 		str = br.readLine();
 		st = new StringTokenizer(str);
-		int[] distance = new int[n-1];
+		Long[] distance = new Long[n-1];
 		
 		for (int i = 0; i<n-1; i++) {
-			distance[i] = Integer.parseInt(st.nextToken());
+			distance[i] = Long.parseLong(st.nextToken());
 		}
 		
 		str = br.readLine();
 		st = new StringTokenizer(str);
-		int[] price = new int[n];
+		Long[] price = new Long[n];
 		for(int i= 0; i<n; i++) {
-			price[i] = Integer.parseInt(st.nextToken());
+			price[i] = Long.parseLong(st.nextToken());
 		}
 		
 //		System.out.println(Arrays.toString(distance));
 //		System.out.println(Arrays.toString(price));
 		
-		int minPrice = Integer.MAX_VALUE;
-		int sum = 0;
+		Long minPrice = 1000000000L;
+		Long sum = 0L;
 		
 		for (int i = 0; i<n-1; i++) {
 			if(minPrice > price[i]) {
