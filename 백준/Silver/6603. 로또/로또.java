@@ -1,5 +1,4 @@
 
-
 import java.util.*;
 import java.io.*;
 
@@ -12,6 +11,12 @@ public class Main {
 	
 	
 	static void com (int index, int str) {
+		//가지치기		
+		if( 6 - index > k-str) {
+			//System.out.println( index +" " + str);	
+			return;
+		}
+		
 		if(index==6) {
 			for(int t: ans) sb.append(t+" ");
 			sb.append("\n");
