@@ -1,3 +1,4 @@
+
 import java.util.*;
 import java.io.*;
 
@@ -9,40 +10,48 @@ public class Main {
 	static StringBuilder sb = new StringBuilder();
 	
 	static void dijkstra(int strLoopi, int caseNum) {
-//		디버깅용		
-//		for (int i = 0; i<n*n; i++) {
-//			System.out.print(i+"번 정점 -   ");
-//			for(int[] t : g[i]) {
-//				System.out.print(Arrays.toString(t)+" ");
-//			}
-//			System.out.println();
-//		}
-		
+
 		d[0] = 0;
+		PriorityQueue<int[]> pq = new PriorityQueue<>((o1,o2) -> {return Integer.compare(o1[1], o2[1]);});
+		pq.offer(new int[] {0,d[0]});
 		
-		
-		for (int i = 0; i<n*n; i++) {
-			int min = Integer.MAX_VALUE;
-			int minVertex = -1;
-			
-			for (int j = 0; j<(int)Math.pow(n,2); j++) {
-				if(!v[j] && min > d[j]) {
-					min = d[j];
-					minVertex = j;
-				}
-			}
+		while(!pq.isEmpty()) {
+			int[] t = pq.poll();
+			int min = t[1];
+			int minVertex = t[0];
+			if(v[minVertex]) continue;
 			
 			v[minVertex] = true;
 			
 			for (int[] j : g[minVertex]) {
-				if(!v[j[0]] && d[j[0]] > j[1]+min) {
+				if(!v[j[0]] && d[j[0]] > j[1] + min) {
 					d[j[0]] = j[1] + min;
+					pq.offer(new int[] {j[0] , d[j[0]]});
 				}
 			}
 		}
+		
+//		for (int i = 0; i<n*n; i++) {
+//			int min = Integer.MAX_VALUE;
+//			int minVertex = -1;
+//			
+//			for (int j = 0; j<(int)Math.pow(n,2); j++) {
+//				if(!v[j] && min > d[j]) {
+//					min = d[j];
+//					minVertex = j;
+//				}
+//			}
+//			
+//			v[minVertex] = true;
+//			
+//			for (int[] j : g[minVertex]) {
+//				if(!v[j[0]] && d[j[0]] > j[1]+min) {
+//					d[j[0]] = j[1] + min;
+//				}
+//			}
+//		}
 		sb.append("Problem "+caseNum+": "+(d[n*n-1]+strLoopi));
 		sb.append("\n");
-		
 	}
 	
 	public static void main(String[] args) throws Exception {
