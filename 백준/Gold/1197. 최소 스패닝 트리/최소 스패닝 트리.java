@@ -1,5 +1,3 @@
-
-
 import java.util.*;
 import java.io.*;
 
@@ -35,28 +33,48 @@ public class Main {
 		
 		w[0] = 0;
 		int sum = 0; int cnt = 0;
+		PriorityQueue<int[]> pq = new PriorityQueue<>((o1,o2) -> {return o1[1] - o2[1]; }		);
+		pq.offer(new int[] {0,w[0]});
 		
-		for (int i = 0; i<v; i++) {
-			int minVertex = -1;
-			int min = Integer.MAX_VALUE;
+		while(!pq.isEmpty()) {
+			int[] t = pq.poll();
+			int minVertex = t[0];
+			int min = t[1];
 			
-			for (int j = 0; j<v; j++) {
-				if(!visit[j] && min > w[j]) {
-					min = w[j];
-					minVertex = j;
-				}
-			}
-			
+			if(visit[minVertex]) continue;
 			visit[minVertex] = true;
-			sum += w[minVertex];
-			if(cnt++ == v-1) break;
+			
+			sum += min;
 			
 			for (int[] j : g[minVertex]) {
 				if(!visit[j[0]] && w[j[0]] > j[1]) {
 					w[j[0]] = j[1];
+					pq.offer(new int[] {j[0],w[j[0]]});
 				}
 			}
 		}
+		
+//		for (int i = 0; i<v; i++) {
+//			int minVertex = -1;
+//			int min = Integer.MAX_VALUE;
+//			
+//			for (int j = 0; j<v; j++) {
+//				if(!visit[j] && min > w[j]) {
+//					min = w[j];
+//					minVertex = j;
+//				}
+//			}
+//			
+//			visit[minVertex] = true;
+//			sum += w[minVertex];
+//			if(cnt++ == v-1) break;
+//			
+//			for (int[] j : g[minVertex]) {
+//				if(!visit[j[0]] && w[j[0]] > j[1]) {
+//					w[j[0]] = j[1];
+//				}
+//			}
+//		}
 		System.out.println(sum);
 	}
 
