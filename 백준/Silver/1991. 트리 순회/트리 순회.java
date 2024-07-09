@@ -1,90 +1,79 @@
-import java.io.*;
+
 import java.util.*;
+import java.io.*;
+
+class Node {
+	char data;
+	Node left;
+	Node right;
+	
+	public Node (char d) {
+		this.data = d;
+		this.left = null;
+		this.right = null;
+	}
+	
+	public void setChild (Node l, Node r) {
+		this.left = l;
+		this.right = r;
+	}
+}
 
 public class Main {
 	static int n;
 	static StringBuilder sb = new StringBuilder();
-	static char[] tree;
-	static char maxChar;
+	static Node[] arr;
 	
-	static void preOrder(int index) {
-		int n = tree[index];
+	static void preOrder(Node node) {
+		sb.append(node.data);
+		if(node.data >= 'A' + n -1) return;
 		
-		if( 'A' <= n && n <= 'Z') sb.append(tree[index]);
-		if(n > maxChar) return;
-			
-		preOrder(index*2);
-		preOrder(index*2+1);
+		if(node.left != null) preOrder(node.left);
+		if(!Objects.isNull(node.right)) preOrder(node.right);
 	}
 	
-	static void inOrder(int index) {
-		int n = tree[index];
-		if(n > maxChar) return;
-		
-		inOrder(index*2);
-		
-		if( 'A' <= n && n <= 'Z') sb.append(tree[index]);
-		
-			
-		inOrder(index*2+1);
+	static void inOrder(Node node) {
+		if(node.left != null) inOrder(node.left);
+		sb.append(node.data);
+		if(node.data >= 'A' + n -1) return;
+		if(!Objects.isNull(node.right)) inOrder(node.right);
 	}
 	
-	static void postOrder(int index) {
-		int n = tree[index];
-		if(n > maxChar) return;
-		
-		postOrder(index*2);
-		postOrder(index*2+1);
-		
-		if( 'A' <= n && n <= 'Z') sb.append(tree[index]);
-			
+	static void postOrder(Node node) {
+		if(node.left != null) postOrder(node.left);
+		if(!Objects.isNull(node.right)) postOrder(node.right);
+		sb.append(node.data);
+		if(node.data >= 'A' + n -1) return;
 	}
 	
 	public static void main(String[] args) throws Exception {
-		//System.setIn(new FileInputStream("src/study/input_1991"));
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		n = Integer.parseInt(br.readLine());
 		String str;
 		StringTokenizer st;
 		
-		maxChar =  (char)('A'+n-1);
-		tree = new char[100000000];
-		tree[1] = 'A';
-		int[] index = new int[256];
-		index['A'] = 1;
-
-		
+		n = Integer.parseInt(br.readLine());
+		arr = new Node[n+1]; for (int i = 1; i<=n; i++) {
+			arr[i] = new Node((char)('A' + i - 1));
+		}
 		for (int i = 0; i<n; i++) {
 			str = br.readLine();
 			st = new StringTokenizer(str);
 			char root = st.nextToken().charAt(0);
-			char left = st.nextToken().charAt(0);
-			char right = st.nextToken().charAt(0);
+			char leftChild = st.nextToken().charAt(0);
+			char rightChild = st.nextToken().charAt(0);
+			
+			leftChild = leftChild=='.' ? (char)0 : (char)(leftChild - 'A' + 1);
+			rightChild = rightChild=='.' ? (char)0 : (char)(rightChild - 'A' + 1);
 			
 			
-			
-			int rootIndex = index[root];
-			left = left == '.' ? 'x' : left;
-			right = right == '.' ? 'x' : right;
-			
-			//System.out.println(root +" "+ rootIndex);
-			
-			tree[rootIndex * 2] = left;
-			tree[rootIndex * 2+1] = right;
-			
-			if(left != 'x') index[left] = rootIndex * 2;
-			if(right != 'x' ) index[right] = rootIndex * 2 + 1;
+			arr[root - 'A' +1].setChild(arr[leftChild], arr[rightChild]);
 		}
-		
-		//System.out.println(Arrays.toString(tree));
-		
-		preOrder(1);
+		preOrder(arr[1]);
 		sb.append("\n");
-		inOrder(1);
+		inOrder(arr[1]);
 		sb.append("\n");
-		postOrder(1);
-		
-		
+		postOrder(arr[1]);
 		System.out.println(sb);
+		
 	}
 }
