@@ -14,8 +14,8 @@ public class Main {
 		for (int i = 0; i<n; i++) {
 			a[i] = Integer.parseInt(st.nextToken()); 
 		}
-		
-		boolean[] v = new boolean[2000002];
+
+		boolean[] v = new boolean[2000001];
 		
 		for (int i = 1; i< 1<<n; i++) {
 			int sum = 0;
