@@ -1,4 +1,3 @@
-
 import java.util.*;
 import java.io.*;
 
@@ -16,7 +15,7 @@ public class Main {
 			a[i] = Integer.parseInt(st.nextToken()); 
 		}
 		
-		boolean[] v = new boolean[2000001];
+		boolean[] v = new boolean[2000002];
 		
 		for (int i = 1; i< 1<<n; i++) {
 			int sum = 0;
