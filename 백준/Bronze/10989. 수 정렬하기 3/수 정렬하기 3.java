@@ -1,4 +1,5 @@
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,15 +12,22 @@ public class Main {
 		int n = Integer.parseInt(br.readLine());
 		StringBuilder sb = new StringBuilder();
 		
-		PriorityQueue<Integer> q = new PriorityQueue<>();
-		int[] arr = new int[n];
+		int[] count = new int[10001];  
+		
 		for (int i = 0; i<n; i++) {
 			int t = Integer.parseInt(br.readLine());
-			arr[i] = t;
+			count[t]++;
 		}
-		Arrays.sort(arr);
-		for (int i = 0; i<n; i++) {
-			sb.append(arr[i]).append("\n");
+
+		for (int i = 1; i<10001; i++) {
+			int cnt = count[i];
+			
+			if(cnt!=0) {
+				for (int j = 0; j<cnt; j++) {
+					sb.append(i).append("\n");
+				}
+			}
+			
 		}
 		
 		System.out.println(sb);
