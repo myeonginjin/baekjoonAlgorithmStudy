@@ -1,8 +1,7 @@
 
-
 import java.util.*;
 
-public class Main{
+public class Main {
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -14,7 +13,7 @@ public class Main{
 		}
 		
 		int[] dp = new int[n];
-		int ans = Integer.MIN_VALUE;
+		int ans = 1;
 		
 		dp[0] = 1;
 		for(int i = 1; i<n; i++) {
@@ -26,7 +25,7 @@ public class Main{
 				}
 			}
 			dp[i] = max;
-			ans = Math.max(ans, max);
+			//ans = Math.max(ans, max);
 		}
 		
 		for (int i :dp) ans = Math.max(ans, i);
