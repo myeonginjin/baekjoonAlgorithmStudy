@@ -1,16 +1,15 @@
-
 import java.io.*;
 import java.util.*;
 
 public class Main {
 	
 	static class Node {
-		Node[] child;
+		Node[] childs;
 		Node failLink;
 		ArrayList<String> outPuts;
 		
 		public Node() {
-			child = new Node[26];
+			childs = new Node[26];
 			failLink = null;
 			outPuts = new ArrayList<>();
 		}
@@ -21,17 +20,14 @@ public class Main {
 	static void makeTrie(String pattern) {
 		Node node = root;
 		
-		for (char t : pattern.toCharArray()) {
-			int c = t - 'a';
+		for (int i = 0; i<pattern.length(); i++) {
+			int c = pattern.charAt(i) - 'a';
 			
+			if(node.childs[c]==null) {
+				node.childs[c] = new Node();
+			} 
 			
-			if(node.child[c] == null) {
-				node.child[c] = new Node();
-				
-				node = node.child[c];
-			} else {
-				node = node.child[c];
-			}
+			node = node.childs[c];
 		}
 		node.outPuts.add(pattern);
 	}
@@ -39,92 +35,86 @@ public class Main {
 	static void makeFailLink() {
 		Queue<Node> q = new LinkedList<>();
 		
-		for (int i = 0; i<root.child.length; i++) {
-			if(root.child[i]!= null) {
-				q.offer(root.child[i]);
-				root.child[i].failLink = root;
-			} else {
-				root.child[i] = root;
+		for (int i = 0; i<26; i++) {
+			if(root.childs[i]!=null){
+				q.offer(root.childs[i]);
+				root.childs[i].failLink = root;
+			}
+			else {
+				root.childs[i] = root;
+			}
+		}
+		
+		while(!q.isEmpty()) {
+			Node node = q.poll();
+			
+			for (int i = 0; i<26; i++) {
+				if(node.childs[i]!=null) {
+					
+					Node lastFailLink = node.failLink;
+					
+					while(lastFailLink.childs[i]==null) {
+						lastFailLink = lastFailLink.failLink;
+					}
+					
+					
+					node.childs[i].failLink = lastFailLink.childs[i];
+					node.childs[i].outPuts.addAll(lastFailLink.childs[i].outPuts);
+					q.add(node.childs[i]);
 				}
 			}
-			
-			while(!q.isEmpty()) {
-				Node node = q.poll();
-				
-				for (int i = 0; i<node.child.length; i++) {
-						if(node.child[i]==null) continue;
-						
-						Node failNode = node.failLink;
-						
-						while(failNode.child[i] == null) {
-							failNode = failNode.failLink;
-						}
-						
-						if(failNode.child[i]==null) {
-							node.child[i].failLink = root;
-							continue;
-						}
-						
-						node.child[i].failLink =  failNode.child[i];
-						node.child[i].outPuts.addAll(failNode.child[i].outPuts);
-						
-						q.offer(node.child[i]);
-					}
-				}
 		}
+	}
 	
 	static boolean search(String text) {
 		Node node = root;
 		
 		for (int i = 0; i<text.length(); i++) {
+			
 			int c = text.charAt(i) - 'a';
 			
-			while(node.child[c] == null) {
+			//Node failNode = node;
+			
+			while(node.childs[c] == null) {
 				node = node.failLink;
 			}
-			
-			node = node.child[c];
-			if(node == null) {
-				node = root;
-				continue;
-			}
-			
+
+            node = node.childs[c];
+
 			if(node.outPuts.size()>0) return true;
-			
-			
 			
 		}
 		
+		
 		return false;
 	}
-		
-		
 
-	
 	
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+//		int n = Integer.parseInt(br.readLine());
+//		String text = br.readLine();
+//		
+//		int m = Integer.parseInt(br.readLine());
+		
 		int n = Integer.parseInt(br.readLine());
-		
-		
 		
 		for (int i = 0; i<n; i++) {
 			makeTrie(br.readLine());
 		}
-		
 		makeFailLink();
 		
-		int q = Integer.parseInt(br.readLine());
+		int m = Integer.parseInt(br.readLine());
 		
 		StringBuilder sb = new StringBuilder();
-		
-		for (int i = 0; i<q; i++) {
+		for (int i = 0; i<m; i++) {
 			if(search(br.readLine())) sb.append("YES").append("\n");
 			else sb.append("NO").append("\n");
 		}
 		
 		System.out.println(sb);
-
+		
 		
 	}
 
