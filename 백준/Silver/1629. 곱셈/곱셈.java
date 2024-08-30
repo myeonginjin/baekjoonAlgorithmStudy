@@ -1,6 +1,9 @@
 import java.util.*;
 import java.io.*;
 
+import java.util.*;
+import java.io.*;
+
 public class Main {
 	
 	static long recur (int a, int b, int c) {
@@ -11,7 +14,7 @@ public class Main {
 		long half = recur(a, b / 2, c);
 			
 		if(b % 2 == 1) {
-			return (half * half % c) * a % c;
+			return  (  (half * half % c) * (a%c)  ) % c;
 		}
 		
 	
