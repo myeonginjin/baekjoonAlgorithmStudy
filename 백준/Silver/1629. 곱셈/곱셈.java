@@ -3,9 +3,8 @@ import java.io.*;
 
 public class Main{
 	
-	static long recur (long a, long b, long c) {
+	static long recur (int a, int b, int c) {
 		if(b <= 1) {
-			//if(b==2) return (long)(Math.pow(a%c, 2)) % c;
 			return a % c;
 		}
 		
@@ -22,19 +21,14 @@ public class Main{
 	
 	public static void main(String[] args) throws Exception {
 		Scanner sc = new Scanner(System.in);
-		long a = sc.nextLong();
-		long b = sc.nextLong();
-		long c = sc.nextLong();
+		int a = sc.nextInt();
+		int b = sc.nextInt();
+		int c = sc.nextInt();
 		
 
-		if (b == 0) {
-			System.out.println(1%c);
-		} else {
-			System.out.println(recur(a,b,c));
-		}
-		
-		
-		
+
+		System.out.println(recur(a,b,c));
+
 	}
 
 }
