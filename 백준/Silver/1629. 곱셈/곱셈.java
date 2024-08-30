@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Main{
+public class Main {
 	
 	static long recur (int a, int b, int c) {
 		if(b <= 1) {
@@ -9,14 +9,13 @@ public class Main{
 		}
 		
 		long half = recur(a, b / 2, c);
-		half = (half * half) % c;
-		
-		// If b is odd, multiply by a once more
+			
 		if(b % 2 == 1) {
-			half = (half * a) % c;
+			return (half * half % c) * a % c;
 		}
 		
-		return half;
+	
+		return (half * half) % c;
 	}
 	
 	public static void main(String[] args) throws Exception {
@@ -24,11 +23,9 @@ public class Main{
 		int a = sc.nextInt();
 		int b = sc.nextInt();
 		int c = sc.nextInt();
-		
-
-
 		System.out.println(recur(a,b,c));
 
+		
 	}
 
 }
