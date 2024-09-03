@@ -1,4 +1,3 @@
-
 import java.io.*;
 import java.util.*;
 
@@ -32,16 +31,11 @@ public class Main {
 					right = arr[i][j] + arr[i-1][j+1];
 				}
 				
-				long max = 0;
-
-				max = Math.max(left, right);
-				max = Math.max(max, arr[i][j]);
 				
-				arr[i][j] = max;
-					
-				
-				ans = Math.max(max, ans);
-
+				long max = Math.max(left, right);
+                
+				arr[i][j] = Math.max(max, arr[i][j]);
+				ans = Math.max(ans, arr[i][j]);
 			}
 		}
 		
@@ -79,8 +73,8 @@ public class Main {
 			star--;
 		}
 		
-		//for(long[] t : arr) System.out.println(Arrays.toString(t)); 
-
+		//for(int[] t : arr) System.out.println(Arrays.toString(t)); 
+		
 		long ans = simul();
 		System.out.println(ans);
 
