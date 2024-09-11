@@ -34,7 +34,7 @@ public class Main {
 					if (changePoint < dp[i][j]) {
 						changePoint = dp[i][j];
 						
-						sb.append(str12.charAt(j-1));
+						//sb.append(str12.charAt(j-1));
 					}
 					
 				} else {
@@ -50,20 +50,22 @@ public class Main {
         int i = str1.length();
         int j = str12.length();
         
-        while (i > 0 && j > 0) {
-            if (str1.charAt(i-1) == str12.charAt(j-1)) {
-                sb2.append(str1.charAt(i-1));
+        while( i > 0 && j > 0 ) {
+        	if(str1.charAt(i-1) == str12.charAt(j-1)) {
+        		sb2.append(str1.charAt(i-1));
                 i--;
                 j--;
-            } else if (dp[i-1][j] > dp[i][j-1]) {
-                i--;
-            } else {
-                j--;
-            }
+        	}
+        	
+        	else if (dp[i-1][j] > dp[i][j-1]) {
+        		i--;
+        	} else {
+        		j--;
+        	}
         }
-        
+         
         // LCS 문자열 출력 (역순이므로 뒤집어야 함)
-        System.out.println(sb2.reverse().toString());
+        System.out.println(sb2.reverse());
 	}
 
 }
