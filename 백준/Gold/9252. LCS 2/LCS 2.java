@@ -1,4 +1,3 @@
-
 import java.io.*;
 import java.util.*;
 
@@ -56,7 +55,7 @@ public class Main {
                 sb2.append(str1.charAt(i-1));
                 i--;
                 j--;
-            } else if (dp[i-1][j] >= dp[i][j-1]) {
+            } else if (dp[i-1][j] > dp[i][j-1]) {
                 i--;
             } else {
                 j--;
