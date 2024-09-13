@@ -43,15 +43,15 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		n = Integer.parseInt(br.readLine());
         
-        if (n == 1) {
-            System.out.println(0);
-            return;
-        }
+        //if (n == 1) {
+            //System.out.println(0);
+            //return;
+        //}
         
 		
 		g = new LinkedList[n+1];
 		
-		for (int i = 1; i<=n; i++) g[i] = new LinkedList<>(); 
+		for (int i = 0; i<=n; i++) g[i] = new LinkedList<>(); 
 		
 		v = new boolean[n+1];
 		
