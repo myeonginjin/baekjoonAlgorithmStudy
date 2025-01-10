@@ -2,40 +2,24 @@ import java.util.*;
 
 class Solution {
     boolean solution(String s) {
-        ArrayDeque<Character> q = new ArrayDeque<>();
         boolean answer = true;
-
-        char[] words = s.toCharArray();
         
-        boolean open = false;
-        int openCnt = 0;
+        Stack<Integer> st = new Stack<>();
         
-        for (char c : words) {
+        for (int i = 0; i<s.length(); i++) {
+            String t = s.substring(i, i+1);
             
-            if(!open && c == '(') { //괄호 시작
-                open = true;
-                openCnt++;
-            }
+            if(t.equals("(")) st.push(1);
             
-            else if (open && c == '('){
-                openCnt++;
-            }
-            
-            else if (!open && c == ')') {
-                answer = false;
-                return false;
-            }
-            
-            else if (open && c == ')') {
-                openCnt--;
+            else  {
                 
-                if(openCnt == 0) open = false;
+                if(st.isEmpty()) return false;
+                else st.pop();
             }
         }
         
-        if(openCnt != 0) answer = false;
-        else answer = true;
-
+        if(st.size()!=0) return false;
+        
         return answer;
     }
 }
