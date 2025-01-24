@@ -24,7 +24,7 @@ class Solution {
             
             //초기화
             v = new boolean[n+1];
-            cnt = 0;  
+            cnt = 1;  
             
             int go = del[0];
             int to = del[1];
@@ -50,7 +50,8 @@ class Solution {
             g[to][go] = false;
             
             
-            dfs(go);
+            //dfs(go);
+            bfs(1);
             
             int group1 = cnt;
             int group2 = n - cnt;
@@ -85,6 +86,25 @@ class Solution {
             g[to][go] = true;
         }
         return answer;
+    }
+    
+    static void bfs(int node) {
+        ArrayDeque<Integer> q = new ArrayDeque<>();
+        
+        q.add(node);
+        v[node] = true;
+        
+        while(!q.isEmpty()) {
+            int elm = q.poll();
+            
+            for (int i = 1; i<g[node].length; i++) {
+                if(!g[elm][i] || v[i]) continue;
+                
+                v[i] = true;
+                q.add(i);
+                cnt++;
+            }
+        }
     }
     
     static void dfs(int node) {
