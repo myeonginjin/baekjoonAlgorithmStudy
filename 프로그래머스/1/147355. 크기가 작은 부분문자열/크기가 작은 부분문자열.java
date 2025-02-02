@@ -9,7 +9,12 @@ class Solution {
         for (int i = 0; i<=t.length() - p.length(); i++) {
             String temp = t.substring(i, i +p.length() );
             
-            if(temp.compareTo(p) <=0) {
+            // if(temp.compareTo(p) <=0) {
+            //     answer++;
+            // }
+            
+            
+            if (Long.parseLong(temp) <= Long.parseLong(p)) {
                 answer++;
             }
         }
