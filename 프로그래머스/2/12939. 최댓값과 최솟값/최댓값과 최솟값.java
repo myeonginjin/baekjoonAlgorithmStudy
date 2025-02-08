@@ -7,8 +7,11 @@ class Solution {
         
         StringTokenizer st = new StringTokenizer(s, " ");
         
-        while(st.hasMoreTokens()){
-            int num = Integer.parseInt(st.nextToken());
+        String[] arr = s.split(" ");
+        
+        int tokens = st.countTokens();
+        for (int i = 0; i<tokens; i++) {
+            int num = Integer.parseInt(arr[i]);
             
             System.out.print(num +" ");
             
