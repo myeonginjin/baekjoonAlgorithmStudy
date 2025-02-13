@@ -6,7 +6,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		HashMap<Character, Integer> team = new HashMap<>();
-		int[] handle = new int[128];
+		char[] handle = new char[256];
 		
 		char[] cs = br.readLine().toCharArray();
 		
@@ -55,9 +55,6 @@ public class Main {
 	
     // 조합 계산 최적화 (팩토리얼 직접 계산 안 함)
     static long combin(int n, int r) {
-        if (n < r) return 0;
-        if (r == 0 || n == r) return 1;
-
         long result = 1;
         for (int i = 0; i < r; i++) {
             result *= (n - i);
