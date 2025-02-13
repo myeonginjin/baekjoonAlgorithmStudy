@@ -40,10 +40,6 @@ public class Main {
 			
             long mul = combin(n, r);
 
-            if (mul == 0) {
-                System.out.println(0);
-                return;
-            }
 			
 			answer *= mul;
 		}
