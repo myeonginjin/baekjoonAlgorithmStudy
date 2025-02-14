@@ -1,4 +1,3 @@
-
 import java.util.*;
 
 public class Main {
@@ -20,10 +19,12 @@ public class Main {
 			for (int j = go; j<31; j++) {
 				if(i < j) continue;
 				
-				if(i == 0) dp[i][j] = 1;
-				if(j == 0) dp[i][j] = 1;
+				long down = i > 0 ? dp[i-1][j] : 0;
+				long left = j > 0 ?  dp[i][j-1] : 0;
 				
-				else dp[i][j] = (dp[i-1][j] + dp[i][j-1]);
+				dp[i][j] = down +left;
+				
+				//System.out.println(dp[i-1][j] +" " + dp[i][j-1]);
 			}
 		}
 		
