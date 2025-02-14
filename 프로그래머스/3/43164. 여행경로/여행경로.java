@@ -1,42 +1,39 @@
 import java.util.*;
 
 class Solution {
+    static String[][] ts;
     static String[] answer;
     static boolean[] v;
-    static List<String> path = new ArrayList<>();
-    static String[][] ts;
+    static boolean find = false;
+    static ArrayList<String> rs = new ArrayList<>();
     
-    static boolean dfs(String current, int count) {
-        path.add(current);
-        
-        if (count == ts.length) {
-            answer = path.toArray(new String[0]);
-            return true;
+    static void dfs(String go, String route, int cnt) {
+        if(cnt > ts.length) {
+            rs.add(route);
+            return;
         }
         
-        for (int i = 0; i < ts.length; i++) {
-            if (!v[i] && ts[i][0].equals(current)) {
+        for (int i = 0; i<ts.length; i++) {
+            if( ts[i][0].equals(go) && !v[i]) {                
                 v[i] = true;
-                if (dfs(ts[i][1], count + 1)) return true; // 정답을 찾았으면 즉시 리턴
-                v[i] = false; // 백트래킹
+                String to = ts[i][1];
+                
+                dfs(to, route+to+" "  , cnt+1);
+                
+                v[i] = false;
             }
         }
         
-        path.remove(path.size() - 1);
-        return false;
     }
-    
     public String[] solution(String[][] tickets) {
         ts = tickets;
-        
-        // 출발지 기준 정렬 후, 도착지 기준 정렬
-        Arrays.sort(ts, (a, b) -> {
-            if (a[0].equals(b[0])) return a[1].compareTo(b[1]);
-            return a[0].compareTo(b[0]);
-        });
-        
         v = new boolean[ts.length];
-        dfs("ICN", 0);
+        
+        dfs("ICN", "ICN ", 1);
+        
+        Collections.sort(rs);
+        
+        String[] answer = rs.get(0).split(" ");
         
         return answer;
     }
