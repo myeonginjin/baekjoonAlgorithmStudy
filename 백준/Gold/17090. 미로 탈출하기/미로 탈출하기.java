@@ -1,4 +1,3 @@
-
 import java.util.*;
 import java.io.*;
 
@@ -42,7 +41,7 @@ public class Main {
 				v[r][c] = false;
 				return true;
 			}
-			v[r][c] = false;
+			//v[r][c] = false;
 			
 			break;
 		case 'R':
@@ -54,7 +53,7 @@ public class Main {
 				v[r][c] = false;
 				return true;
 			}
-			v[r][c] = false;
+			//v[r][c] = false;
 			
 			break;
 		case 'D':
@@ -66,7 +65,7 @@ public class Main {
 				v[r][c] = false;
 				return true;
 			}
-			v[r][c] = false;
+			//v[r][c] = false;
 			
 			break;
 		case 'L':
@@ -78,7 +77,7 @@ public class Main {
 				v[r][c] = false;
 				return true;
 			}
-			v[r][c] = false;
+			//v[r][c] = false;
 			
 			break;
 		}
