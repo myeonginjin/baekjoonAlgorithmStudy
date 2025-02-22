@@ -6,7 +6,7 @@ class Solution {
         
         
         long start = 1;
-        long end = (long)times[0] * n;
+        long end = times[0] *  (long)n;
         
         while( start <= end ) {
             long mid = (start + end) / 2;
