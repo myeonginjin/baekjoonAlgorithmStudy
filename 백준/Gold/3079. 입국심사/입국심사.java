@@ -17,7 +17,7 @@ public class Main {
 		Arrays.sort(times);
 		
 		long start = 1;
-		long end = (long)times[0] * m;
+		long end = times[0] * m;
 		
 		long mid = start + end / 2;
 		
