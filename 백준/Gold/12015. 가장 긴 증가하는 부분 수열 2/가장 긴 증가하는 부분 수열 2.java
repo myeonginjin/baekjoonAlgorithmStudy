@@ -1,65 +1,50 @@
 
-import java.io.*;
+
 import java.util.*;
+import java.io.*;
 
 public class Main {
-	static int n;
-	static ArrayList<Integer> arr;
-	
-	
-	static int binarySearch(int str, int las , int num) {
-		
-		if (str == las) return str;
-		
-		int mid = (str + las) / 2;
-		
-		int midNum = arr.get( mid );
-		
-		if(num > midNum) {
-			return binarySearch(mid+1, las, num);
-		}  else if (num == midNum) {
-			return (str + las) / 2;
-		} else {
-			return binarySearch(str, mid, num);
-		}
-		
-	 
-	}
-	
-	
-	public static void main(String[] args) throws Exception {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		
-		n = Integer.parseInt(br.readLine());
-		arr = new ArrayList<>();
-		
-		String str = br.readLine();
-		StringTokenizer st = new StringTokenizer(str);
-		
-		arr.add(Integer.parseInt(st.nextToken()));
-		
-		
-		for (int i = 1; i<n; i++) {
-			int num = Integer.parseInt(st.nextToken());
-			
-			if(arr.get(arr.size()-1) < num) {
-				arr.add(num);
-			} else {
-				int index = binarySearch(0, arr.size()-1, num);
-				arr.set(index, num);
-			}
-			
-			//System.out.println(arr);
-			
-		}
-		
-		System.out.println(arr.size());
-		
-		//System.out.println(arr);
-		
-		
-		
-		
-	}
+    static int n;
+    static int[] a;
+    static ArrayList<Integer> arr;
 
+    // 올바른 lower_bound 구현
+    static int binarySearch(int str, int end, int t) {
+        while (str < end) {
+            int mid = (str + end) / 2;
+            if (arr.get(mid) >= t) { // mid도 후보가 될 수 있음
+                end = mid;
+            } else {
+                str = mid + 1;
+            }
+        }
+        return end;
+    }
+
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        n = Integer.parseInt(br.readLine());
+        a = new int[n];
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        for (int i = 0; i < n; i++) {
+            a[i] = Integer.parseInt(st.nextToken());
+        }
+
+        arr = new ArrayList<>();
+        arr.add(a[0]); // 첫 번째 원소 추가
+
+        for (int i = 1; i < a.length; i++) {
+            int t = a[i];
+            int idx = binarySearch(0, arr.size(), t);
+
+            if (idx == arr.size()) { // 현재 LIS 길이보다 큰 값이면 추가
+                arr.add(t);
+            } else { // LIS 길이에 포함되는 위치 값 갱신
+                arr.set(idx, t);
+            }
+        }
+
+        System.out.println(arr.size()); // LIS 길이 출력
+    }
 }
