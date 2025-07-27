@@ -5,30 +5,38 @@ class Solution {
         int[] answer = {};
         ArrayList<Integer> arr = new ArrayList<>();
         
-        int index = 0;
+        int idx = 0;
         
-        while(index<progresses.length) {
+        while (idx < progresses.length) {
+            int cnt = 0;
             
-            for (int i = index; i<progresses.length; i++) { //작업 진행
+            for (int i = idx; i<progresses.length; i++) {
                 progresses[i] += speeds[i];
             }
             
-            int cnt = 0;
-            for (int i = index; i<progresses.length; i++) { //배포 검사
-                   if(progresses[i] >= 100) {
-                       cnt++;
-                       index = i;
-                   } else break;
+            for (int i = idx; i<progresses.length; i++) {
+                if(progresses[i] >= 100) {
+                    cnt++;
+                    if(i == progresses.length -1) {
+                        idx = progresses.length;
+                        break;
+                    }
+                } else {
+                    idx = i;
+                    break;
+                }
             }
-            if(cnt!=0) {
-                index++;
-                arr.add(cnt);
-            }
+            if(cnt != 0) arr.add(cnt);
         }
         
         answer = new int[arr.size()];
-        int t = 0;
-        for(int i : arr) answer[t++] = i; 
+        int iidx = 0;
+        
+        for (int i : arr) {
+            answer[iidx++] = i;
+        }
+        
+        
         
         
         return answer;
